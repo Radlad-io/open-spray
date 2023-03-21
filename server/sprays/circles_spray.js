@@ -1,11 +1,18 @@
 export default class Circles {
-  constructor() {}
-  spray(sk, dia) {
-    if (sk.mouseIsPressed) {
-      sk.fill(0);
-    } else {
-      sk.fill(255);
+  constructor(s, size) {
+    this.s = s;
+    this.size = size;
+  }
+  preload() {}
+  spray(size, color) {
+    // this.s.clear();
+    // this.s.fill(color);
+    this.s.stroke(color);
+    // console.log(this.s.accelerationX);
+    if (this.s.touches.length > 0) {
+      this.s.touches.map((touch) => {
+        this.s.ellipse(touch.x, touch.y, size, size);
+      });
     }
-    sk.ellipse(sk.mouseX, sk.mouseY, dia, dia);
   }
 }
