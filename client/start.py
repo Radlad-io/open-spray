@@ -31,7 +31,8 @@ def rotary_changed(change):
     if change == Rotary.ROT_CW:
         val = val + 1
     elif change == Rotary.ROT_CCW:
-        val = val - 1
+        if val > 0:
+            val = val - 1
     display.home_screen(val)
         
 rotary.add_handler(rotary_changed)

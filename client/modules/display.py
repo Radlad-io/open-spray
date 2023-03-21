@@ -15,8 +15,7 @@ class Display:
         self.display.set_pen(self.BLACK)
         self.display.clear()
         self.display.set_pen(self.WHITE)
-        self.display.text("Open Spray", 12, 55, 200, 8)
-        self.display.text("By: Kevin Merinsky", 12, 175, 200, 2)
+        self.display.text("Open Spray", 12, 65, 200, 8)
         self.display.update()
         
     def boot_screen(self, heading, status, footer):
