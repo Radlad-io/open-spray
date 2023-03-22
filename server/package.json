@@ -17,6 +17,8 @@
     "@tweakpane/plugin-essentials": "^0.1.8",
     "express": "^4.18.2",
     "p5": "^1.6.0",
-    "tweakpane": "^3.1.7"
+    "toastify-js": "^1.12.0",
+    "tweakpane": "^3.1.7",
+    "ws": "^8.13.0"
   }
 }

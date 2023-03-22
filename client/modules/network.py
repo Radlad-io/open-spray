@@ -1,7 +1,6 @@
 from time import sleep
 import network
-import socket
-
+import usocket as socket
 
 class Network:
     
@@ -16,6 +15,22 @@ class Network:
         while wlan.isconnected() == False:
             print('Waiting for connection...')
             sleep(1)
-        self.IP = wlan.ifconfig()[0]
-        print(f'Connected to: {self.SSID}', '\n', f'{self.IP}')
-        return self.IP
+        IP = wlan.ifconfig()[0]
+        print(f'Connected to: {self.SSID}', '\n', f'{IP}')
+        return IP
+    
+    def open_socket(self, endpoint, port):
+        try:
+#             sockaddr = socket.getaddrinfo(endpoint, port)[0][-1]
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        except socket.error:
+            print(socket.error)
+            
+        s.connect((endpoint, port))
+        request = "GET / HTTP/1.0\r\n\r\n"
+        try:
+            s.sendall(request)
+        except socket.error:
+            print('Send failed')
+    
+            

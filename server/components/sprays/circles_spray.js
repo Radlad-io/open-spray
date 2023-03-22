@@ -4,6 +4,7 @@ export default class Circles {
     this.size = size;
   }
   preload() {}
+  setup() {}
   spray(size, color) {
     // this.s.clear();
     // this.s.fill(color);

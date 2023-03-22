@@ -7,7 +7,7 @@ from modules.rotary import Rotary
 SSID=secrets.SSID
 PWD=secrets.PWD
 ENDPOINT=secrets.ENDPOINT
-API_ROUTE=secrets.API_ROUTE
+PORT = secrets.PORT
 
 display = Display()
 network = Network(SSID, PWD)
@@ -17,10 +17,18 @@ display.splash_screen()
 sleep(2) #Splash Screen Delay
 display.boot_screen("Booting...","Connecting to WiFi","")
 
-ip = network.connect()
+try:
+    ip = network.connect()
+except:
+    print('Trouble connecting to WiFi')
 display.boot_screen("Booting...","Establishing WebSockets", ip)
 
-sleep(2)
+try:
+    network.open_socket(ENDPOINT, PORT)
+except ValueError:
+    print(ValueError)
+    print('WebSocket issues')
+    
 display.home_screen(0)
 
 rotary = Rotary(0,1)
