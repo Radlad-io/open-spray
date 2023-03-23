@@ -12,15 +12,16 @@ const WS_PORT = 5001;
 const wss = new WebSocketServer.Server({ port: WS_PORT });
 
 // app.use("/", express.static(path.join(__dirname, "public")));
+// app.get("/*", (_req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
+
 app.get("/", (req, res) => {
   res.json({
     msg: "You hit the V1 API",
     from: "Server",
   });
   console.log(req);
-});
-app.get("/*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 wss.on("connection", (ws) => {
