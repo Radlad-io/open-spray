@@ -1,16 +1,18 @@
 export default class Squares {
-  constructor(s, size) {
+  constructor(s) {
     this.s = s;
-    this.size = size;
+    this.sizeOffset = 20;
+    this.layer = s.createGraphics(window.innerWidth, window.innerWidth);
   }
   preload() {}
   setup() {}
-  spray(size, color) {
-    if (this.s.mouseIsPressed) {
-      this.s.fill(0);
-    } else {
-      this.s.fill(255);
-    }
-    this.s.square(this.s.mouseX, this.s.mouseY, size);
+  draw(size, color) {
+    this.layer.noStroke();
+    this.layer.fill(0);
+    this.layer.square(this.s.mouseX, this.s.mouseY, size * this.sizeOffset);
+    this.s.image(this.layer, 0, 0);
+  }
+  clear() {
+    this.layer.clear();
   }
 }
