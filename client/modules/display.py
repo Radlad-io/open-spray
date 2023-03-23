@@ -15,26 +15,27 @@ class Display:
         self.display.set_pen(self.BLACK)
         self.display.clear()
         self.display.set_pen(self.WHITE)
-        self.display.text("Open Spray", 12, 65, 200, 8)
+        self.display.text("Bit Spray", 12, 65, 200, 8)
         self.display.update()
         
     def boot_screen(self, heading, status, footer):
         self.display.set_pen(self.BLACK)
         self.display.clear()
         self.display.set_pen(self.WHITE)
-        self.display.text("Open Spray", 12, 10, 200, 8)
+        self.display.text("Bit Spray", 12, 10, 200, 8)
         self.display.text(heading, 12, 140, 200, 2)
         self.display.text(status, 12, 160, 200, 3)
         self.display.text(footer, 12, 215, 200, 2)
         self.display.update()
         
-    def home_screen(self, spray_index):
+    def home_screen(self, spray_index, footer):
         self.display.set_pen(self.BLACK)
         self.display.clear() 
         self.display.set_pen(self.WHITE)
-        self.display.text("Open Spray", 12, 10, 200, 4)
+        self.display.text("Bit Spray", 12, 10, 200, 4)
         self.display.text("Spray selected", 12, 45, 200, 2)
         self.display.text(str(spray_index), 12, 65, 200, 6)
+        self.display.text(footer, 12, 215, 200, 2)
         self.display.update()
     
     def clear(self):

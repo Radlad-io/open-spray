@@ -1,6 +1,6 @@
 from time import sleep
 import network
-import usocket as socket
+import usocket
 
 class Network:
     
@@ -19,18 +19,15 @@ class Network:
         print(f'Connected to: {self.SSID}', '\n', f'{IP}')
         return IP
     
-    def open_socket(self, endpoint, port):
-        try:
-#             sockaddr = socket.getaddrinfo(endpoint, port)[0][-1]
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        except socket.error:
-            print(socket.error)
-            
-        s.connect((endpoint, port))
-        request = "GET / HTTP/1.0\r\n\r\n"
-        try:
-            s.sendall(request)
-        except socket.error:
-            print('Send failed')
+    def http_request(self):
+        s = usocket.socket()
+        ai = usocket.getaddrinfo("192.168.50.252", 5000)
+        print("Address infos:", ai)
+        addr = ai[0][-1]
+        print("Connect address:", addr)
+        s.connect(addr)
+        s.send(b"GET / HTTP/1.0\r\n\r\n")
+        print(s.recv(4096))
+        s.close()
     
             

@@ -4,32 +4,32 @@ import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
 import Toastify from "toastify-js";
 
-// const ws = new WebSocket("ws://localhost:5001");
-// ws.addEventListener("open", () => {
-//   Toastify({
-//     text: "WebSocket connection established",
-//     duration: 3000,
-//     newWindow: true,
-//     close: true,
-//     gravity: "top",
-//     position: "left",
-//     stopOnFocus: true,
-//   }).showToast();
-//   ws.send("How are you?");
-// });
+const ws = new WebSocket("ws://192.168.50134:80");
+ws.addEventListener("open", () => {
+  Toastify({
+    text: "WebSocket connection established",
+    duration: 3000,
+    newWindow: true,
+    close: true,
+    gravity: "top",
+    position: "left",
+    stopOnFocus: true,
+  }).showToast();
+  ws.send("How are you?");
+});
 
-// ws.addEventListener("message", function (event) {
-//   console.log(event.data);
-//   Toastify({
-//     text: event.data,
-//     duration: 3000,
-//     newWindow: true,
-//     close: true,
-//     gravity: "top",
-//     position: "left",
-//     stopOnFocus: true,
-//   }).showToast();
-// });
+ws.addEventListener("message", function (event) {
+  console.log(event.data);
+  Toastify({
+    text: event.data,
+    duration: 3000,
+    newWindow: true,
+    close: true,
+    gravity: "top",
+    position: "left",
+    stopOnFocus: true,
+  }).showToast();
+});
 
 const pane = new Pane();
 pane.registerPlugin(EssentialsPlugin);
