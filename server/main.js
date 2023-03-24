@@ -4,6 +4,16 @@ import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
 import Toastify from "toastify-js";
 
+// Prevents pinch zoom, gesture based nav and right-click menu on touch
+document.addEventListener("contextmenu", (event) => event.preventDefault());
+// document.addEventListener(
+//   "touchstart",
+//   (event) => {
+//     event.preventDefault();
+//   },
+//   { passive: false }
+// );
+
 const pane = new Pane();
 pane.registerPlugin(EssentialsPlugin);
 
@@ -17,7 +27,10 @@ const clearBtn = pane.addButton({
   label: "Img Buffer", // optional
 });
 
-document.addEventListener("contextmenu", (event) => event.preventDefault());
+clearBtn.on("pointerdown", () => {
+  console.log("firing");
+  clear();
+});
 
 // Sprays
 import Circles from "./components/sprays/circles_spray/circles_spray";
@@ -27,25 +40,35 @@ import Standard from "./components/sprays/standard_spray/standard_spray";
 const sketch = (s) => {
   // FIXME: size should be between 0 & 1
   let size = 0.5;
-  let spray = 0;
+  let sprayIndex = 0;
   let r = 255;
-  let g = 0;
-  let b = 0;
+  let g = 200;
+  let b = 100;
   let a = 0.51;
   let color = s.color(r, g, b, a);
   let sprays = [];
+  let layers = [];
+  let layerIndex = 0;
 
   const PARAMS = {
-    key: "#ff0055ff",
+    key: { r, g, b, a },
   };
 
   // const pane = new Pane();
-  pane.addInput(PARAMS, "key", {
+  const test = pane.addInput(PARAMS, "key", {
     picker: "inline",
     expanded: true,
     onchange: (e) => {
       console.log(e);
     },
+  });
+
+  pane.on("change", (e) => {
+    console.log(e.value);
+    r = Math.floor(e.value.r);
+    g = Math.floor(e.value.g);
+    b = Math.floor(e.value.b);
+    a = e.value.a;
   });
 
   // Instantiates sprays
@@ -80,26 +103,20 @@ const sketch = (s) => {
     sprays.map((spray) => {
       spray.setup();
     });
+    layers.push(s.createGraphics(window.innerWidth, window.innerWidth));
+    sprays[sprayIndex].setLayer(layers[layerIndex]);
   };
 
   s.draw = () => {
     fpsGraph.begin();
     color = s.color(r, g, b, a);
-    if (spray === 0) {
-      standard.draw(size, color);
-    } else {
-      squares.draw(size, color);
-    }
+    sprays[sprayIndex].draw(size, color, layers[layerIndex]);
     fpsGraph.end();
   };
 
   s.windowResized = () => {
     s.resizeCanvas(window.innerWidth, window.innerHeight);
   };
-
-  // addEventListener("wheel", (event) => {
-  //   size += event.deltaY * 0.01;
-  // });
 
   addEventListener("keydown", (event) => {
     switch (event.key) {
@@ -122,7 +139,7 @@ const sketch = (s) => {
         switchSpray(1);
         break;
       case "3":
-        console.log(3);
+        switchSpray(2);
         break;
       case "4":
         console.log(4);
@@ -142,12 +159,30 @@ const sketch = (s) => {
       case "9":
         console.log(9);
         break;
+      case "u":
+        console.log(layers);
+        console.log(layers[layerIndex]);
+        break;
     }
   });
   function switchSpray(index) {
-    spray = index;
+    if (index === sprayIndex) {
+      return;
+    }
+
+    sprayIndex = index;
+
+    // Creates new layer appends to layer array
+    layers.push(s.createGraphics(window.innerWidth, window.innerHeight));
+    console.log(layers);
+    layerIndex++;
+
+    // Passes new layer to spray
+    console.log("# of layers: " + layers.length);
+    sprays[sprayIndex].setLayer(layers[layerIndex]);
+
     Toastify({
-      text: "Switched Brush",
+      text: `Brush: ${sprays[index].name}`,
       duration: 3000,
       newWindow: true,
       close: true,

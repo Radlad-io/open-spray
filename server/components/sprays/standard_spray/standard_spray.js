@@ -1,7 +1,9 @@
 export default class Standard {
   constructor(s) {
     this.s = s;
-    this.layer = s.createGraphics(window.innerWidth, window.innerWidth);
+    this.name = "Standard";
+    this.sizeOffset = 1.5;
+    this.layer;
     this.contactDuration = 1;
     this.previousTouches = [];
   }
@@ -10,6 +12,10 @@ export default class Standard {
 
   // Runs once on setup
   setup() {}
+
+  setLayer(layer) {
+    this.layer = layer;
+  }
 
   // Runs on Draw call
   draw(size, color) {
@@ -34,7 +40,9 @@ export default class Standard {
         );
 
         // Calc stroke weight based distance moved, contact length and size factor
-        this.layer.strokeWeight(weight * size * (this.contactDuration / 2));
+        this.layer.strokeWeight(
+          weight * size * (this.contactDuration / 2) * this.sizeOffset
+        );
 
         this.layer.line(
           touch.x,
@@ -56,9 +64,5 @@ export default class Standard {
     }
 
     this.s.image(this.layer, 0, 0);
-  }
-
-  clear() {
-    this.layer.clear();
   }
 }
