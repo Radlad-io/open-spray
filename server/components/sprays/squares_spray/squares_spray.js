@@ -11,14 +11,15 @@ export default class Squares {
     this.layer = layer;
   }
   draw(size, color) {
+    this.layer.stroke(0);
+    this.layer.fill(color);
     if (this.s.touches.length > 0) {
       this.s.touches.map((touch) => {
-        this.layer.stroke(0);
-        this.layer.fill(color);
         this.layer.square(touch.x, touch.y, size * this.sizeOffset);
       });
+    } else if (this.s.mouseIsPressed) {
+      this.layer.square(this.s.mouseX, this.s.mouseY, size * this.sizeOffset);
     }
-
     this.s.image(this.layer, 0, 0);
   }
 
