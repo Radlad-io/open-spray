@@ -21,18 +21,18 @@ export default class Network {
   }
 
   init() {
-    this.client.on("reconnect", (error) => {
-      console.log("reconnecting:", error);
-    });
-
     this.client.on("connect", (connection) => {
       console.log("Connected", connection);
       this.client.subscribe(this.topicName, (err, granted) => {
         if (err) {
-          console.log(err, "err");
+          console.log(err);
         }
         console.log(granted, "granted");
       });
+    });
+
+    this.client.on("reconnect", (error) => {
+      console.log("reconnecting:", error);
     });
 
     this.client.on("error", (error) => {

@@ -8,40 +8,6 @@ import Experience from "./components/Experience";
 
 new Experience();
 
-// import mqtt from "mqtt";
-
-// const options = {
-//   clean: true,
-//   connectTimeout: 4000,
-//   username: "proinsky",
-//   password: "aio_xXMK00sfPegka4oux2xxT6DMJFbJ",
-// };
-// const connectUrl = "wss://io.adafruit.com/proinsky/feeds/bitspray";
-// const client = mqtt.connect(connectUrl, options);
-// const topicName = "proinsky/feeds/bitspray";
-
-// client.on("reconnect", (error) => {
-//   console.log("reconnecting:", error);
-// });
-
-// client.on("connect", (connection) => {
-//   console.log("Connected", connection);
-//   client.subscribe(topicName, (err, granted) => {
-//     if (err) {
-//       console.log(err, "err");
-//     }
-//     console.log(granted, "granted");
-//   });
-// });
-
-// client.on("error", (error) => {
-//   console.log("Connection failed:", error);
-// });
-
-// client.on("message", (topic, message) => {
-//   console.log("receive message：", topic, message.toString());
-// });
-
 // // Prevents pinch zoom, gesture based nav and right-click menu on touch
 // document.addEventListener("contextmenu", (event) => event.preventDefault());
 // // document.addEventListener(

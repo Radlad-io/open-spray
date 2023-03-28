@@ -10,14 +10,15 @@ export default class Experience {
       return instance;
     }
     this.state = new State();
+    this.env = import.meta.env;
 
     // Should be pushed down so it has access to the methods its needs
     // when mqtt messages are sent
     this.network = new Network(
-      "wss://io.adafruit.com/proinsky/feeds/bitspray",
-      "proinsky",
-      "aio_Vdbd077r91NUeouLlgsbaoKssd62",
-      "proinsky/feeds/bitspray"
+      this.env.VITE_MQTT_URL,
+      this.env.VITE_MQTT_USERNAME,
+      this.env.VITE_MQTT_TOKEN,
+      this.env.VITE_MQTT_TOPIC
     );
     this.sketch = this.P5 = new p5(this.sketch);
   }

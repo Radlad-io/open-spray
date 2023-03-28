@@ -1,10 +1,11 @@
 {
   "vsmqtt.brokerProfiles": [
     {
-      "name": "Test",
-      "host": "localhost",
-      "port": 5100,
-      "clientId": "vsmqtt_client"
+      "name": "Bit Spray Adafruit",
+      "host": "io.adafruit.com",
+      "clientId": "1dR841Zdff8g4j1Hg864",
+      "username": "proinsky",
+      "password": "aio_xXMK00sfPegka4oux2xxT6DMJFbJ"
     }
   ]
 }
