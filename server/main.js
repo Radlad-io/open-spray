@@ -5,32 +5,14 @@ import Experience from "./components/Experience";
 new Experience();
 
 // // Prevents pinch zoom, gesture based nav and right-click menu on touch
-// document.addEventListener("contextmenu", (event) => event.preventDefault());
-// // document.addEventListener(
-// //   "touchstart",
-// //   (event) => {
-// //     event.preventDefault();
-// //   },
-// //   { passive: false }
-// // );
-
-// const pane = new Pane();
-// pane.registerPlugin(EssentialsPlugin);
-
-// const fpsGraph = pane.addBlade({
-//   view: "fpsgraph",
-//   label: "fpsgraph",
-//   lineCount: 2,
-// });
-// const clearBtn = pane.addButton({
-//   title: "Clear",
-//   label: "Img Buffer", // optional
-// });
-
-// clearBtn.on("pointerdown", () => {
-//   console.log("firing");
-//   clear();
-// });
+document.addEventListener("contextmenu", (event) => event.preventDefault());
+// document.addEventListener(
+//   "touchstart",
+//   (event) => {
+//     event.preventDefault();
+//   },
+//   { passive: false }
+// );
 
 // // Sprays
 // import Circles from "./components/sprays/circles_spray/circles_spray";

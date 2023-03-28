@@ -4,8 +4,8 @@ let instance = null;
 
 export default class Notification {
   constructor() {
-    if (instance === null) {
-      instance = this;
+    if (instance !== null) {
+      return instance;
     }
 
     instance = this;

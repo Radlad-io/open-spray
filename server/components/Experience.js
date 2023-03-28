@@ -14,8 +14,7 @@ export default class Experience {
     instance = this;
     this.state = new State();
     this.env = import.meta.env;
-    this.notification = new Notification();
-    this.notification.showToast("Spray Changed");
+
     // Should be pushed down so it has access
     // to the methods its needs
     // when mqtt messages are sent
@@ -29,6 +28,7 @@ export default class Experience {
   }
 
   sketch(s) {
+    console.log(s);
     const state = new State();
     const debug = new Debug();
     let sprays = [];
@@ -56,5 +56,9 @@ export default class Experience {
         debug.fps.end();
       }
     };
+  }
+
+  clear() {
+    console.log("firing");
   }
 }
