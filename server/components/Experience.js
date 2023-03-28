@@ -1,6 +1,8 @@
 import * as p5 from "p5";
+import Debug from "./Debug";
 import Network from "./Network";
 import State from "./State";
+import Notification from "./Notification";
 
 let instance = null;
 
@@ -9,10 +11,13 @@ export default class Experience {
     if (instance !== null) {
       return instance;
     }
+    instance = this;
     this.state = new State();
     this.env = import.meta.env;
-
-    // Should be pushed down so it has access to the methods its needs
+    this.notification = new Notification();
+    this.notification.showToast("Spray Changed");
+    // Should be pushed down so it has access
+    // to the methods its needs
     // when mqtt messages are sent
     this.network = new Network(
       this.env.VITE_MQTT_URL,
@@ -25,6 +30,7 @@ export default class Experience {
 
   sketch(s) {
     const state = new State();
+    const debug = new Debug();
     let sprays = [];
 
     s.preload = () => {};
@@ -34,17 +40,21 @@ export default class Experience {
     };
 
     s.draw = () => {
-      if (s.mouseIsPressed) {
-        s.fill(s.color(state.color.get()));
-      } else {
-        s.fill(255);
+      if (debug.active) {
+        debug.fps.begin();
       }
-      s.ellipse(
-        s.mouseX,
-        s.mouseY,
-        80 * state.size.get(),
-        80 * state.size.get()
-      );
+      if (s.mouseIsPressed) {
+        s.fill(...state.color.get());
+        s.ellipse(
+          s.mouseX,
+          s.mouseY,
+          80 * state.size.get(),
+          80 * state.size.get()
+        );
+      }
+      if (debug.active) {
+        debug.fps.end();
+      }
     };
   }
 }

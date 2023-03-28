@@ -1,8 +1,4 @@
 import "./style.css";
-// import * as p5 from "p5";
-import { Pane } from "tweakpane";
-import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
-import Toastify from "toastify-js";
 
 import Experience from "./components/Experience";
 
@@ -188,20 +184,5 @@ new Experience();
 //     // Passes new layer to spray
 //     console.log("# of layers: " + layers.length);
 //     sprays[sprayIndex].setLayer(layers[layerIndex]);
-
-//     Toastify({
-//       text: `Brush: ${sprays[index].name}`,
-//       duration: 3000,
-//       newWindow: true,
-//       close: true,
-//       gravity: "bottom",
-//       position: "right",
-//       stopOnFocus: true,
-//       style: {
-//         background: "linear-gradient(to right, #333, #555)",
-//       },
-//     }).showToast();
-//   }
-// };
 
 // const P5 = new p5(sketch);

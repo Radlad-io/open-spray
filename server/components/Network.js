@@ -1,3 +1,4 @@
+// TODO: Investigate why MQTT via npm is throwing errors
 // import mqtt from "mqtt";
 
 export default class Network {
