@@ -28,7 +28,7 @@ try:
     ip = network.wifi_connect()
 except:
     print('Trouble connecting to WiFi')
-display.boot_screen("Booting...","Establishing server connection...", ip)
+display.boot_screen("Booting...","Connecting to server", ip)
 
 
 try:

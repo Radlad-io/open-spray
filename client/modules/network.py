@@ -8,10 +8,10 @@ class Network:
        self.SSID = SSID
        self.PWD = PWD
        self.mqtt_client = MQTTClient(
-            client_id=mqtt_client_id,
-            server=mqtt_host,
-            user=mqtt_username,
-            password=mqtt_password)
+            client_id = mqtt_client_id,
+            server = mqtt_host,
+            user = mqtt_username,
+            password = mqtt_password)
        
     def wifi_connect(self):
         wlan = network.WLAN(network.STA_IF)
@@ -29,6 +29,7 @@ class Network:
 
     def mqtt_send(self, MQTT_PUBLISH_TOPIC):
         self.mqtt_client.publish(MQTT_PUBLISH_TOPIC, "{'type': 'control', 'param': 'size', 'value':'.5'}")
+#         self.mqtt_client.publish(MQTT_PUBLISH_TOPIC, "{'type': 'control', 'param': 'size', 'value':'.5'}")
 #         self.mqtt_client.disconnect()
 #         try:
 # 

@@ -16,7 +16,7 @@ export default class Experience {
     this.network = new Network(
       "wss://io.adafruit.com/proinsky/feeds/bitspray",
       "proinsky",
-      "aio_xXMK00sfPegka4oux2xxT6DMJFbJ",
+      "aio_Vdbd077r91NUeouLlgsbaoKssd62",
       "proinsky/feeds/bitspray"
     );
     this.sketch = this.P5 = new p5(this.sketch);
