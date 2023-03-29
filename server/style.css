@@ -118,6 +118,7 @@ body {
 }
 
 .item {
+  position: relative;
   padding: 10px 12px;
   margin: 20px 5px;
   border-radius: 4px;
@@ -133,36 +134,42 @@ body {
 }
 
 .right div {
-  background-color: rgba(255, 255, 255, 0.75);
-  color: black;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
   backdrop-filter: blur(2px);
 }
 
-.right div:nth-child(2) {
-  background-color: rgba(255, 0, 0, 0.75);
+#r {
+  background-color: rgba(255, 0, 0, 0.85);
 }
-.right div:nth-child(3) {
-  background-color: rgba(0, 255, 0, 0.75);
+#g {
+  background-color: rgba(0, 255, 0, 0.85);
 }
-.right div:nth-child(4) {
-  background-color: rgba(0, 0, 255, 0.75);
+#b {
+  background-color: rgba(0, 0, 255, 0.85);
 }
 
-.size {
+#size {
   position: relative;
-}
-.size span {
-  position: absolute;
-  width: 100%;
-  height: 20px;
-  background-color: red;
+  width: 25px;
+  background: linear-gradient(
+    90deg,
+    rgba(100, 100, 100, 0.85) 50%,
+    rgba(255, 255, 255, 0.85) 50%
+  );
 }
 
 #color {
   min-width: 20px;
-  background-color: rgba(255, 255, 0, 0.5);
+  background-color: rgba(255, 255, 0, 0.85);
 }
 
 #defaultCanvas0 {
   z-index: 900;
+}
+
+.no-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }

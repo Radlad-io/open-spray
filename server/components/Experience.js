@@ -2,7 +2,6 @@ import * as p5 from "p5";
 import Debug from "./Debug";
 import Network from "./Network";
 import State from "./State";
-import Notification from "./Notification";
 
 let instance = null;
 

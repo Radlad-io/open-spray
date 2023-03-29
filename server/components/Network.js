@@ -44,6 +44,7 @@ export default class Network {
     });
 
     this.client.on("message", (topic, message) => {
+      this.notification.showToast(message.toString());
       console.log("receive message：", topic, message.toString());
     });
   }

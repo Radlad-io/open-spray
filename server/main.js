@@ -15,10 +15,6 @@ document.addEventListener("contextmenu", (event) => event.preventDefault());
 // );
 
 // // Sprays
-// import Circles from "./components/sprays/circles_spray/circles_spray";
-// import Squares from "./components/sprays/squares_spray/squares_spray";
-// import Standard from "./components/sprays/standard_spray/standard_spray";
-// import Brownian from "./components/sprays/brownian_spray/brownian_spray";
 
 // const sketch = (s) => {
 //   // FIXME: size should be between 0 & 1
