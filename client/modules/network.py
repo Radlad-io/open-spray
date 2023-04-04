@@ -1,5 +1,6 @@
 from time import sleep
 import network
+# from .debounce import Debounce
 from umqtt.simple import MQTTClient
 
 class Network:
@@ -26,14 +27,13 @@ class Network:
     
     def mqtt_connect(self):
         self.mqtt_client.connect()
-
-    def mqtt_send(self, MQTT_PUBLISH_TOPIC):
-        self.mqtt_client.publish(MQTT_PUBLISH_TOPIC, "{'type': 'control', 'param': 'size', 'value':'.5'}")
-#         self.mqtt_client.publish(MQTT_PUBLISH_TOPIC, "{'type': 'control', 'param': 'size', 'value':'.5'}")
+        
+    def mqtt_send(self, MQTT_PUBLISH_TOPIC, MSG):
+        
 #         self.mqtt_client.disconnect()
-#         try:
-# 
-#         except Exception as e:
-#             print(f'Failed to publish message: {e}')
+        try:
+            self.mqtt_client.publish(MQTT_PUBLISH_TOPIC, f'{MSG}')
+        except Exception as e:
+            print(f'Failed to publish message: {e}')
 #         finally:
             

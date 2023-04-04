@@ -27,7 +27,6 @@ export default class Experience {
   }
 
   sketch(s) {
-    console.log(s);
     const state = new State();
     const debug = new Debug();
     let sprays = [];
