@@ -10,7 +10,8 @@ export default class Squares {
     this.range = 6;
   }
   preload() {}
-  setup() {
+  setup(layerIndex) {
+    this.setLayer(layerIndex);
     for (let i = 0; i < this.num; i++) {
       this.ax[i] = this.s.width / 2;
       this.ay[i] = this.s.height / 2;

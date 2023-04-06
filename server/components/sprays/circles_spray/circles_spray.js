@@ -6,9 +6,13 @@ export default class Circles {
     this.layer;
   }
   preload() {}
-  setup() {}
+  setup(layerIndex) {
+    this.setLayer(layerIndex);
+  }
   setLayer(layer) {
     this.layer = layer;
+    console.log(layer);
+    console.log(this.layer);
   }
   draw(size, color) {
     this.layer.stroke(0);

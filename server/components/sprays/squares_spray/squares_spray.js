@@ -6,7 +6,9 @@ export default class Squares {
     this.layer;
   }
   preload() {}
-  setup() {}
+  setup(layerIndex) {
+    this.setLayer(layerIndex);
+  }
   setLayer(layer) {
     this.layer = layer;
   }

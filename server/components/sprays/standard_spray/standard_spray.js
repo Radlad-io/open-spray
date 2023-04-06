@@ -11,7 +11,9 @@ export default class Standard {
   preload() {}
 
   // Runs once on setup
-  setup() {}
+  setup(layerIndex) {
+    this.setLayer(layerIndex);
+  }
 
   setLayer(layer) {
     this.layer = layer;
@@ -19,9 +21,10 @@ export default class Standard {
 
   // Runs on Draw call
   draw(size, color) {
+    this.layer.stroke(color);
+
     if (this.s.touches.length > 0) {
       // Increases
-      this.layer.stroke(color, 5);
       if (this.contactDuration < 2) {
         this.contactDuration += 0.02;
       }
@@ -31,7 +34,7 @@ export default class Standard {
           this.previousTouches[touch.id] = { ...touch };
         }
 
-        // Cumulative distance moved
+        // Cumulative x + y distance moved
         const weight = Math.abs(
           touch.x -
             this.previousTouches[touch.id].x +

@@ -1,7 +1,10 @@
 import * as p5 from "p5";
 import Debug from "./Debug";
 import Network from "./Network";
+import Layers from "./Layers";
 import State from "./State";
+import Sprays from "./Sprays";
+import Inputs from "./Inputs";
 
 let instance = null;
 
@@ -12,6 +15,7 @@ export default class Experience {
     }
     instance = this;
     this.state = new State();
+    this.inputs = new Inputs();
     this.env = import.meta.env;
 
     // Should be pushed down so it has access
@@ -28,12 +32,35 @@ export default class Experience {
 
   sketch(s) {
     const state = new State();
+    const sprays = new Sprays(s);
+    const layers = new Layers(s);
     const debug = new Debug();
-    let sprays = [];
 
-    s.preload = () => {};
+    // Prevents Right-Click Menu
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+    // Pevents zooming during touch events
+    if (!debug.active) {
+      document.addEventListener(
+        "touchstart",
+        (event) => {
+          event.preventDefault();
+        },
+        { passive: false }
+      );
+    }
+
+    s.preload = () => {
+      sprays.sprayList.map((spray) => {
+        spray.preload();
+      });
+    };
 
     s.setup = () => {
+      s.pixelDensity(s.displayDensity());
+      sprays.sprayList.map((spray) => {
+        spray.setup(layers.getLayer(state.layerIndex.get()));
+      });
       s.createCanvas(window.innerWidth, window.innerHeight);
     };
 
@@ -41,18 +68,21 @@ export default class Experience {
       if (debug.active) {
         debug.fps.begin();
       }
-      if (s.mouseIsPressed) {
-        s.fill(...state.color.get());
-        s.ellipse(
-          s.mouseX,
-          s.mouseY,
-          80 * state.size.get(),
-          80 * state.size.get()
-        );
-      }
+
+      sprays
+        .getSpray(state.sprayIndex.get())
+        .draw(state.size.get(), state.color.get());
+
       if (debug.active) {
         debug.fps.end();
       }
+    };
+
+    s.windowResized = () => {
+      s.resizeCanvas(window.innerWidth, window.innerHeight);
+      layers.layers.map((layer) => {
+        layer.resizeCanvas(window.innerWidth, window.innerHeight);
+      });
     };
   }
 

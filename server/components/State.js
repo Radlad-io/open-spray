@@ -5,7 +5,7 @@ export default class State {
     if (instance !== null) {
       return instance;
     }
-
+    instance = this;
     this.dev = import.meta.env.dev || false;
     this.setState();
   }
@@ -39,7 +39,7 @@ export default class State {
       },
     };
     this.a = {
-      value: 0.75,
+      value: 1,
       get() {
         return this.value;
       },
@@ -48,7 +48,7 @@ export default class State {
       },
     };
     this.color = {
-      value: [this.r, this.g, this.b, this.a],
+      value: [this.r.get(), this.g.get(), this.b.get(), this.a.get()],
       get() {
         return this.value;
       },
@@ -58,6 +58,24 @@ export default class State {
     };
     this.size = {
       value: 0.5,
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.value = value;
+      },
+    };
+    this.sprayIndex = {
+      value: 0,
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.value = value;
+      },
+    };
+    this.layerIndex = {
+      value: 0,
       get() {
         return this.value;
       },
