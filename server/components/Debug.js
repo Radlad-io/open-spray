@@ -64,13 +64,6 @@ export default class Debug {
           this.state.a.get(),
         ]);
 
-        // console.log(
-        //   this.state.r.get(),
-        //   this.state.g.get(),
-        //   this.state.b.get(),
-        //   this.state.a.get()
-        // );
-
         console.log(this.state.color.get());
       });
   }

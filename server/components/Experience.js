@@ -51,9 +51,7 @@ export default class Experience {
     }
 
     s.preload = () => {
-      sprays.sprayList.map((spray) => {
-        spray.preload();
-      });
+      sprays.preload();
     };
 
     s.setup = () => {
@@ -68,6 +66,8 @@ export default class Experience {
       if (debug.active) {
         debug.fps.begin();
       }
+
+      // s.clear();
 
       sprays
         .getSpray(state.sprayIndex.get())

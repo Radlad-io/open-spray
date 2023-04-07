@@ -15,7 +15,7 @@ export default class Circles {
     console.log(this.layer);
   }
   draw(size, color) {
-    this.layer.stroke(0);
+    this.layer.noStroke();
     this.layer.fill(color);
     if (this.s.touches.length > 0) {
       this.s.touches.map((touch) => {
