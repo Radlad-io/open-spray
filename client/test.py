@@ -14,15 +14,15 @@ MQTT_PASSWORD=secrets.MQTT_PASSWORD
 MQTT_PUBLISH_TOPIC=secrets.MQTT_PUBLISH_TOPIC
 MQTT_CLIENT_ID=secrets.MQTT_CLIENT_ID
 
-led = Pin(4, Pin.OUT)
-button = Pin(5, Pin.IN, Pin.PULL_UP)
+led = Pin(27, Pin.OUT)
+button = Pin(28, Pin.IN, Pin.PULL_UP)
 
 store = Store()
 display = Display()
 network = Network(SSID, PWD, MQTT_CLIENT_ID, MQTT_HOST, MQTT_USERNAME, MQTT_PASSWORD)
 
 display.splash_screen()
-sleep(2) #Splash Screen Delay
+sleep(4) #Splash Screen Delay
 
 display.boot_screen("Booting...","Connecting to WiFi","")
 
@@ -69,9 +69,9 @@ def button_released_function():
     print('LED OFF')
     
 
-# while True:
-#     if get_button() == 1:
-#         button_press_function()
-#     else:
-#         button_released_function()
-#     sleep(2)
+while True:
+    if get_button() == 1:
+        button_press_function()
+    else:
+        button_released_function()
+    sleep(2)
