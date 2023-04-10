@@ -39,23 +39,30 @@ except ValueError:
     print('MQTT issues')
     
     
-display.home_screen(0, "")
+sleep(2)
+display.home_screen()
 
-rotary = Rotary(0,1)
 val = 0
-
 def rotary_changed(change):
     global val
     if change == Rotary.ROT_CW:
         val = val + 1
-        network.mqtt_send(MQTT_PUBLISH_TOPIC, store.get_values())
+        print(val)
+#         network.mqtt_send(MQTT_PUBLISH_TOPIC, store.get_values())
     elif change == Rotary.ROT_CCW:
         if val > 0:
             val = val - 1
-            network.mqtt_send(MQTT_PUBLISH_TOPIC, store.get_values())
-    display.home_screen(val, "")
+#             network.mqtt_send(MQTT_PUBLISH_TOPIC, store.get_values())
+            print(val)
+    display.home_screen()
         
-rotary.add_handler(rotary_changed)
+
+# rotary_01 = Rotary(13,14,15,21,22,26,0,65535,65535)
+# rotary_02 = Rotary(7,8,9,10,11,12,65535,0,65535)
+rotary_03 = Rotary(1,2,3,4,5,6,0,0,0)
+
+# rotary_01.add_handler(rotary_changed)
+# rotary_02.add_handler(rotary_changed)
 
 def get_button():
     return not button.value()
@@ -69,9 +76,9 @@ def button_released_function():
     print('LED OFF')
     
 
-while True:
-    if get_button() == 1:
-        button_press_function()
-    else:
-        button_released_function()
-    sleep(2)
+# while True:
+#     if get_button() == 1:
+#         button_press_function()
+#     else:
+#         button_released_function()
+#     sleep(2)
