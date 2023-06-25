@@ -1,6 +1,8 @@
 # Modules.Display
-
 from picographics import PicoGraphics, DISPLAY_ROUND_LCD_240X240, PEN_RGB565
+import modules.store as Store
+
+store = Store.Store()
 
 def remap(x, in_min, in_max, out_min, out_max):
     """ Maps two ranges together """
@@ -20,6 +22,7 @@ class Display:
         self.GREEN_COLOR = display.create_pen(0, 255, 0)
         self.BLUE_COLOR = display.create_pen(0, 0, 255)
         self.ACITVE_COLOR = [225,95,115]
+        self.clear()
         
     def splash_screen(self):
         display.set_pen(self.BLACK)
@@ -40,7 +43,7 @@ class Display:
     
     def menu_screen(self):
         display.set_pen(self.BLACK)
-        display.clear() 
+        display.clear()
         display.set_pen(self.WHITE)
         display.rectangle(50, 95, 140, 50)
         display.circle(50, 120, 24)
@@ -57,13 +60,27 @@ class Display:
 
     def home_screen(self):
         # BACKGOUND
-        self.background_comp()
-        self.progress_bars()
-        self.menu_position_indicator(1)
+        if store.get_MENU_INDEX() == 0:
+            self.background_comp()
+            self.progress_bars()
+            self.menu_position_indicator(1)
+        
+        if store.get_MENU_INDEX() == 1:
+            self.background_comp()
+            display.set_pen(self.WHITE)
+            display.text("SIZES", 75, 50, 200, 4)
+            self.menu_position_indicator(2)
+        
+        if store.get_MENU_INDEX() == 2:
+            self.background_comp()
+            display.set_pen(self.WHITE)
+            display.text("LAYERS", 60, 50, 200, 4)
+            self.menu_position_indicator(3)
 
     def background_comp(self):
         display.set_pen(self.BLACK)
         display.clear()
+        self.ACITVE_COLOR = [store.get_R(),store.get_G(),store.get_B()]
         color = display.create_pen(self.ACITVE_COLOR[0], self.ACITVE_COLOR[1],self.ACITVE_COLOR[2])
         display.set_pen(color)
         display.circle(120, 120, 125)
@@ -82,13 +99,13 @@ class Display:
         display.rectangle(105, 120, 100, 10)
         display.rectangle(105, 145, 100, 10)
         display.set_pen(self.RED_COLOR)
-        rValue = remap(self.ACITVE_COLOR[0], 0, 255, 0, 100)
-        gValue = remap(self.ACITVE_COLOR[1], 0, 255, 0, 100)
-        bValue = remap(self.ACITVE_COLOR[2], 0, 255, 0, 100)
+        rValue = remap(store.get_R(), 0, 255, 0, 100)
+        gValue = remap(store.get_G(), 0, 255, 0, 100)
+        bValue = remap(store.get_B(), 0, 255, 0, 100)
         display.rectangle(105, 95, rValue, 10)
-        display.set_pen(self.BLUE_COLOR)
-        display.rectangle(105, 120, gValue, 10)
         display.set_pen(self.GREEN_COLOR)
+        display.rectangle(105, 120, gValue, 10)
+        display.set_pen(self.BLUE_COLOR)
         display.rectangle(105, 145, bValue, 10)
 
     def menu_position_indicator(self, position):
@@ -107,8 +124,8 @@ class Display:
         display.update()
     
     def clear(self):
-        self.display.clear()
-        
-# FOR TESTING
-# lcd_display = Display()
-# lcd_display.splash_screen()
+        display.clear()
+        display.update()
+    
+    def update(self):
+        display.update()

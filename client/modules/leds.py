@@ -1,31 +1,28 @@
 from machine import Pin, PWM
 
-rLED_ONE = PWM(Pin(4, Pin.OUT))
-gLED_ONE = PWM(Pin(5, Pin.OUT))
-bLED_ONE = PWM(Pin(6, Pin.OUT))
-rLED_ONE.freq(5000)
-gLED_ONE.freq(5000)
-bLED_ONE.freq(5000)
-rLED_ONE.duty_u16(0)
-gLED_ONE.duty_u16(0)
-bLED_ONE.duty_u16(65535)
+rLED_ONE = Pin(4, Pin.OUT)
+gLED_ONE = Pin(5, Pin.OUT)
+bLED_ONE = Pin(6, Pin.OUT)
 
-rLED_TWO = PWM(Pin(10, Pin.OUT))
-gLED_TWO = PWM(Pin(11, Pin.OUT))
-bLED_TWO = PWM(Pin(12, Pin.OUT))
-rLED_TWO.freq(5000)
-gLED_TWO.freq(5000)
-bLED_TWO.freq(5000)
-rLED_TWO.duty_u16(65535)
-gLED_TWO.duty_u16(0)
-bLED_TWO.duty_u16(65535)
 
-rLED_Three = PWM(Pin(21, Pin.OUT))
-gLED_Three = PWM(Pin(22, Pin.OUT))
-bLED_Three = PWM(Pin(26, Pin.OUT))
-rLED_Three.freq(5000)
-gLED_Three.freq(5000)
-bLED_Three.freq(5000)
-rLED_Three.duty_u16(65535)
-gLED_Three.duty_u16(65535)
-bLED_Three.duty_u16(0)
+rLED_TWO = Pin(10, Pin.OUT)
+gLED_TWO = Pin(11, Pin.OUT)
+bLED_TWO = Pin(12, Pin.OUT)
+
+
+rLED_Three = Pin(21, Pin.OUT)
+gLED_Three = Pin(22, Pin.OUT)
+bLED_Three = Pin(26, Pin.OUT)
+
+
+rLED_ONE.on()
+gLED_ONE.on()
+bLED_ONE.off()
+
+rLED_TWO.on()
+gLED_TWO.off()
+bLED_TWO.on()
+
+rLED_Three.off()
+gLED_Three.on()
+bLED_Three.on()
