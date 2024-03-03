@@ -1,6 +1,6 @@
 import * as p5 from "p5";
 import Debug from "./Debug";
-import Network from "./Network";
+import Bluetooth from "./Bluetooth";
 import Layers from "./Layers";
 import State from "./State";
 import Sprays from "./Sprays";
@@ -17,16 +17,7 @@ export default class Experience {
     this.state = new State();
     this.inputs = new Inputs();
     this.env = import.meta.env;
-
-    // Should be pushed down so it has access
-    // to the methods its needs
-    // when mqtt messages are sent
-    this.network = new Network(
-      this.env.VITE_MQTT_URL,
-      this.env.VITE_MQTT_USERNAME,
-      this.env.VITE_MQTT_TOKEN,
-      this.env.VITE_MQTT_TOPIC
-    );
+    this.Bluetooth = new Bluetooth();
     this.sketch = this.P5 = new p5(this.sketch);
   }
 

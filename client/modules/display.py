@@ -8,7 +8,7 @@ def remap(x, in_min, in_max, out_min, out_max):
     """ Maps two ranges together """
     return int((x-in_min) * (out_max-out_min) / (in_max - in_min) + out_min)
 
-display = PicoGraphics(display=DISPLAY_ROUND_LCD_240X240, pen_type=PEN_RGB565)
+display = PicoGraphics(display=DISPLAY_ROUND_LCD_240X240, pen_type=PEN_RGB565, rotate=180)
 
 class Display:
     def __init__(self):

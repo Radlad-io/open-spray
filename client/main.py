@@ -11,11 +11,11 @@ from modules.sound import Sound
 
 SSID=secrets.SSID
 PWD=secrets.PWD
-MQTT_HOST=secrets.MQTT_HOST
-MQTT_USERNAME=secrets.MQTT_USERNAME
-MQTT_PASSWORD=secrets.MQTT_PASSWORD
-MQTT_PUBLISH_TOPIC=secrets.MQTT_PUBLISH_TOPIC
-MQTT_CLIENT_ID=secrets.MQTT_CLIENT_ID
+# MQTT_HOST=secrets.MQTT_HOST
+# MQTT_USERNAME=secrets.MQTT_USERNAME
+# MQTT_PASSWORD=secrets.MQTT_PASSWORD
+# MQTT_PUBLISH_TOPIC=secrets.MQTT_PUBLISH_TOPIC
+# MQTT_CLIENT_ID=secrets.MQTT_CLIENT_ID
 
 
 inputs = Inputs()
@@ -26,7 +26,7 @@ store = Store()
 display = Display()
 display.clear()
 
-network = Network(SSID, PWD, MQTT_CLIENT_ID, MQTT_HOST, MQTT_USERNAME, MQTT_PASSWORD)
+network = Network(SSID, PWD)
 sound = Sound()
 
 display.splash_screen()
@@ -38,14 +38,16 @@ display.boot_screen("Booting...","Connecting to WiFi","")
 try:
     ip = network.wifi_connect()
 except:
+    display.boot_screen("Booting...","Not connected", "no ip address assigned")
     print('Trouble connecting to WiFi')
+
 display.boot_screen("Booting...","Connecting to server", ip)
 
 
-try:
-    network.mqtt_connect()
-except ValueError:
-    print('MQTT issues')
+# try:
+#     network.mqtt_connect()
+# except ValueError:
+#     print('MQTT issues')
     
     
 sleep(2)
