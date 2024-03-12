@@ -132,3 +132,8 @@ dist
 .pnp.*
 
 client/modules/secrets.py
+.vscode/
+.vscode/*
+
+client/.vscode/
+client/.vscode/*
