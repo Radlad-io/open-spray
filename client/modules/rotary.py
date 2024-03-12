@@ -71,17 +71,3 @@ class Rotary:
          handler(type)
 
 
-# rotary_01 = Rotary(13,14,15,21,22,26,True,False,False)
-
-
-# button = uButton(
-#     machine.Pin(15, machine.Pin.IN, Pin.PULL_DOWN),
-#     cb_short = lambda: print('short press'),
-#     short_wait=True,
-#     cb_long = lambda: print('long press'),
-#     bounce_time=25,
-#     long_time=500,
-#     act_low=True
-# )
-
-

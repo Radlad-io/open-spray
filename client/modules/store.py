@@ -1,26 +1,24 @@
 
-
 class Store:
     _instance = None
     
     def __new__(cls):
         if cls._instance is None:
-            print('Creating the object')
             cls._instance = super(Store, cls).__new__(cls)
-            # Put any initialization here.
         return cls._instance
     
-    def __init__(self):        
+    def __init__(self):
         self.R = 100
         self.G = 175
         self.B = 75
-        self.A = 0
+        self.A = 1
         self.SIZE = 0.5
         self.SPRAY_INDEX = 0
+        self.LAYER_INDEX = 0
         self.MENU_INDEX = 0
         
     def get_values_as_json(self):
-        values = {"r": f'{self.R}', "g": f'{self.G}', "b": f'{self.B}', "a": f'{self.A}', "size": f'{self.SIZE}', "sprayIndex": f'{self.SPRAY_INDEX}'}
+        values = b'{"rgba": "[{self.R},{self.G},{self.B},{self.A}]", "sprayIndex": "{self.SPRAY_INDEX}", "layerIndex": "{self.LAYER_INDEX}"}'
         return values
     
     def get(self, value):

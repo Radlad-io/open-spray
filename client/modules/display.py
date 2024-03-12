@@ -11,6 +11,13 @@ def remap(x, in_min, in_max, out_min, out_max):
 display = PicoGraphics(display=DISPLAY_ROUND_LCD_240X240, pen_type=PEN_RGB565, rotate=180)
 
 class Display:
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(Display, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self):
         self.WIDTH, HEIGHT = display.get_bounds()
         self.WHITE = display.create_pen(255, 255, 255)
@@ -129,3 +136,4 @@ class Display:
     
     def update(self):
         display.update()
+
