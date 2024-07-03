@@ -20,7 +20,6 @@ notes = {
     }
 
 class Sound:
-    
     def __init__(self):
         self.duty = int(65535/2)
         self.muted = False

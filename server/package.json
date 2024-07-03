@@ -4,22 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently 'vite --host' 'nodemon server.cjs'",
+    "dev": "vite --host",
     "vite dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "nodemon": "^2.0.21",
     "vite": "^4.2.0"
   },
   "dependencies": {
     "@tweakpane/plugin-essentials": "^0.1.8",
-    "express": "^4.18.2",
-    "mqtt": "^4.3.7",
     "p5": "^1.6.0",
     "toastify-js": "^1.12.0",
-    "tweakpane": "^3.1.7",
-    "ws": "^8.13.0"
+    "tweakpane": "^3.1.7"
   }
 }

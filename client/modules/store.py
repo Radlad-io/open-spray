@@ -11,18 +11,25 @@ class Store:
         self.R = 100
         self.G = 175
         self.B = 75
-        self.A = 1
+        self.A = 0.5
         self.SIZE = 0.5
-        self.SPRAY_INDEX = 0
+        self.SPREAD = 0.5
+        self.SPRAY_INDEX = 1
+        self.SPRAY_COUNT = 12
         self.LAYER_INDEX = 0
+        self.UNDO = False
         self.MENU_INDEX = 0
+        self.CONNECTED = False;
+        
+    def get_connected(self):
+        return self.CONNECTED
+    
+    def set_connected(self, value):
+        self.CONNECTED = value
         
     def get_values_as_json(self):
-        values = b'{"rgba": "[{self.R},{self.G},{self.B},{self.A}]", "sprayIndex": "{self.SPRAY_INDEX}", "layerIndex": "{self.LAYER_INDEX}"}'
+        values = f'{{"rgba": "[{self.R},{self.G},{self.B},{self.A}]","size": "{self.SIZE}","spread": "{self.SPREAD}", "sprayIndex": "{self.SPRAY_INDEX}", "layerIndex": "{self.LAYER_INDEX}", "undo": "{self.UNDO}"}}'
         return values
-    
-    def get(self, value):
-        return self[value]
     
     def get_R(self):
         return self.R
@@ -41,7 +48,43 @@ class Store:
     
     def set_B(self, value):
         self.B = value
+        
+    def get_A(self):
+        return self.A
     
+    def set_A(self, value):
+        self.A = value
+    
+    def get_size(self):
+        return self.SIZE
+    
+    def set_size(self, value):
+        self.SIZE = value
+    
+    def get_spread(self):
+        return self.SPREAD
+    
+    def set_spread(self, value):
+        self.SPREAD = value
+        
+    def get_spray_index(self):
+        return self.SPRAY_INDEX
+        
+    def set_spray_index(self, value):
+        self.SPRAY_INDEX = value
+        
+    def get_spray_count(self):
+        return self.SPRAY_COUNT
+        
+    def set_spray_count(self, value):
+        self.SPRAY_COUNT = value
+        
+    def get_undo(self):
+        return self.UNDO
+        
+    def set_undo(self, value):
+        self.UNDO = value
+        
     def get_MENU_INDEX(self):
         return self.MENU_INDEX
         
@@ -50,3 +93,6 @@ class Store:
 
         
   
+
+
+

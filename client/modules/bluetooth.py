@@ -41,11 +41,9 @@ aioble.register_services(remote_service)
 connected = False
 sync_required = True
 
-data = None
-
 async def remote_task():
     """ Task to handle remote control """
-    global sync_required, data
+    global sync_required
     print("Waiting for Bluetooth connection...")
     while True:
         if not connected:
@@ -53,10 +51,11 @@ async def remote_task():
             continue
         if connected:
             if sync_required:
-                data = store.get_values_as_json()
+                data = bytes(store.get_values_as_json(), 'UTF-8')
                 button_characteristic.write(data)
                 button_characteristic.notify(connection, data)
                 sync_required = False
+                store.set_undo(False)
             await asyncio.sleep_ms(BOUNCE_INTERVAL)
 
 async def peripheral_task():
@@ -70,19 +69,21 @@ async def peripheral_task():
             appearance=_BLE_APPEARANCE_GENERIC_REMOTE_CONTROL,
             services=[_GENERIC]
         ) as connection:
-            print("Connection from, ", connection.device)
+            print("Connection to: ", connection.device)
             connected = True
+            store.set_connected(True)
             display.home_screen()
-            print("connected {connected}")
             await connection.disconnected(timeout_ms=None)
             connected = False
+            store.set_connected(False)
             display.boot_screen("Connection lost:", "Please reconnect", "using bluetooth")
             print("disconnected")
 
-async def main():
+async def init():
     tasks = [
         asyncio.create_task(peripheral_task()),
         asyncio.create_task(remote_task()),
     ]
     await asyncio.gather(*tasks)
+
 

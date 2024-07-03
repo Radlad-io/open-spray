@@ -1,5 +1,6 @@
 # Modules.Display
 from picographics import PicoGraphics, DISPLAY_ROUND_LCD_240X240, PEN_RGB565
+import jpegdec
 import modules.store as Store
 
 store = Store.Store()
@@ -9,6 +10,12 @@ def remap(x, in_min, in_max, out_min, out_max):
     return int((x-in_min) * (out_max-out_min) / (in_max - in_min) + out_min)
 
 display = PicoGraphics(display=DISPLAY_ROUND_LCD_240X240, pen_type=PEN_RGB565, rotate=180)
+WIDTH, HEIGHT = display.get_bounds()
+
+arrows = jpegdec.JPEG(display)
+arrows.open_file("assets/arrows.jpg")
+arrow = jpegdec.JPEG(display)
+arrow.open_file("assets/arrow.jpg")
 
 class Display:
     _instance = None
@@ -22,7 +29,7 @@ class Display:
         self.WIDTH, HEIGHT = display.get_bounds()
         self.WHITE = display.create_pen(255, 255, 255)
         self.BLACK = display.create_pen(0, 0, 0)
-        self.GRAY = display.create_pen(50, 50, 50)
+        self.GRAY = display.create_pen(85, 85, 85)
         self.TEXT_COLOR = display.create_pen(255, 255, 255)
         self.BACKGROUND_COLOR = display.create_pen(228, 169, 70)
         self.RED_COLOR = display.create_pen(255, 0, 0)
@@ -67,22 +74,20 @@ class Display:
 
     def home_screen(self):
         # BACKGOUND
-        if store.get_MENU_INDEX() == 0:
+        index = store.get_MENU_INDEX()
+        if index == 0:
             self.background_comp()
-            self.progress_bars()
-            self.menu_position_indicator(1)
+            self.color_screen()
         
-        if store.get_MENU_INDEX() == 1:
+        if index == 1:
             self.background_comp()
-            display.set_pen(self.WHITE)
-            display.text("SIZES", 75, 50, 200, 4)
-            self.menu_position_indicator(2)
+            self.params_screen()
         
-        if store.get_MENU_INDEX() == 2:
+        if index == 2:
             self.background_comp()
-            display.set_pen(self.WHITE)
-            display.text("LAYERS", 60, 50, 200, 4)
-            self.menu_position_indicator(3)
+            self.spray_screen()
+        
+        self.menu_position_indicator(index)
 
     def background_comp(self):
         display.set_pen(self.BLACK)
@@ -94,7 +99,7 @@ class Display:
         display.set_pen(self.BLACK)
         display.circle(120, 120, 108)
 
-    def progress_bars(self):
+    def color_screen(self):
         # TEXT
         display.set_pen(self.WHITE)
         display.text("COLOR", 65, 50, 200, 4)
@@ -114,6 +119,51 @@ class Display:
         display.rectangle(105, 120, gValue, 10)
         display.set_pen(self.BLUE_COLOR)
         display.rectangle(105, 145, bValue, 10)
+    
+    def params_screen(self):
+        # TEXT
+        display.set_pen(self.WHITE)
+        display.text("PARAMS", 50, 50, 200, 4)
+        display.text("ALPHA", 35, 95, 200, 2)
+        display.text("SIZE", 35, 120, 200, 2)
+        display.text("SPREAD", 35, 145, 200, 2)
+        # PROGRESS BARS
+        display.set_pen(self.GRAY)
+        display.rectangle(105, 97, 100, 10)
+        display.rectangle(90, 122, 115, 10)
+        display.rectangle(115, 147, 90, 10)
+        display.set_pen(self.WHITE)
+        aValue = remap(store.get_A(), 0, 1, 0, 100)
+        siValue = remap(store.get_size(), 0, 1, 0, 115)
+        spValue = remap(store.get_spread(), 0, 1, 0, 90)
+        display.rectangle(105, 97, aValue, 10)
+        display.rectangle(90, 122, siValue, 10)
+        display.rectangle(115, 147, spValue, 10)
+        
+    def spray_screen(self):
+        # TEXT
+
+        display.set_pen(self.WHITE)
+        display.text("LAYERS", 60, 50, 200, 4)
+        # PROGRESS BARS
+        arrows.decode(40, 100, jpegdec.JPEG_SCALE_FULL, dither=True)
+        display.set_pen(self.RED_COLOR)
+        display.circle(74, 130, 18)
+        display.set_pen(self.BLACK)
+        display.circle(74, 130, 14)
+        display.set_pen(self.WHITE)
+        display.text("{:02d}".format(store.SPRAY_INDEX), 66, 123, 200, 2)
+        display.text("SPRAY", 48, 156, 200, 2)
+        
+        arrow.decode(135, 100, jpegdec.JPEG_SCALE_FULL, dither=True)
+        display.set_pen(self.BLUE_COLOR)
+        display.circle(169, 130, 18)
+        display.set_pen(self.BLACK)
+        display.circle(169, 130, 14)
+        display.set_pen(self.WHITE)
+        display.text("BACK", 148, 156, 200, 2)
+        
+                    
 
     def menu_position_indicator(self, position):
         # MENU INDICATOR
@@ -122,11 +172,11 @@ class Display:
         display.circle(120, 200, 5)
         display.circle(140, 200, 5)
         display.set_pen(self.BLACK)
-        if position == 1:
+        if position == 0:
             display.circle(100, 200, 4)
-        elif position == 2:
+        elif position == 1:
             display.circle(120, 200, 4)
-        elif position == 3:
+        elif position == 2:
             display.circle(140, 200, 4)
         display.update()
     
@@ -137,3 +187,5 @@ class Display:
     def update(self):
         display.update()
 
+# test_display = Display()
+# test_display.home_screen()

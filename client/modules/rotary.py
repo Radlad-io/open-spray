@@ -1,7 +1,6 @@
 from machine import Pin
 import utime as time
 import micropython
-from modules.ubutton import uButton
 
 class Rotary:
 
@@ -69,5 +68,6 @@ class Rotary:
    def call_handlers(self, type):
       for handler in self.handlers:
          handler(type)
+
 
 
